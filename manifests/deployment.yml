@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: rajeshkappoorpipelinesjavascriptdocker 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rajeshkappoorpipelinesjavascriptdocker
+  template:
+    metadata:
+      labels:
+        app: rajeshkappoorpipelinesjavascriptdocker 
+    spec:
+      containers:
+        - name: rajeshkappoorpipelinesjavascriptdocker 
+          image: mycontainerregistryrajesh.azurecr.io/rajeshkappoorpipelinesjavascriptdocker
+          ports:
+          - containerPort: 8080
