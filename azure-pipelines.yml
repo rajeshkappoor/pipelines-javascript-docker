@@ -43,8 +43,12 @@ stages:
         tags: |
           $(tag)
 
-    - upload: manifests
-      artifact: manifests
+    - task: PublishPipelineArtifact@1
+      inputs:
+        artifactName: 'manifests'
+        path: 'manifests'          
+    # - upload: manifests
+    #   artifact: manifests
 
 - stage: Deploy
   displayName: Deploy stage
@@ -61,6 +65,10 @@ stages:
       runOnce:
         deploy:
           steps:
+          - task: DownloadPipelineArtifact@2
+            inputs:
+              artifactName: 'manifests'
+              downloadPath: '$(System.ArtifactsDirectory)/manifests'            
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
